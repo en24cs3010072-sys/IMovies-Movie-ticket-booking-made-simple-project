@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "IMovies Cinema Management"
+description = "A student-friendly cinema management starter with an Express/Mongoose API, JWT authentication, movie browsing, and an interactive seat selection demo."
+version = "1.0.0"
+id = "artifacts/imovies"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 19368
+
+[services.development]
+run = "pnpm --filter @workspace/imovies run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/imovies", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/imovies/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "19368"
+BASE_PATH = "/"
